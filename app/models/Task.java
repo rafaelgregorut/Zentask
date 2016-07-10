@@ -22,8 +22,12 @@ public class Task extends Model{
 	
     public static Model.Finder<Long,Task> find = new Model.Finder(Long.class, Task.class);
     
-    public static List<Task> findTodoInvolving(String user) {
+    public static List<Task> findProjectsWithPendingTasksInvolving(String user) {
     	return find.fetch("project").where().eq("done", false).eq("project.members.email", user).findList();
+    }
+    
+    public static List<Task> findAssignedTo(String user) {
+    	return find.where().eq("assignedTo.email", user).findList();
     }
     
     public static Task create(Task task, Long project, String folder) {
