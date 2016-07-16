@@ -1,14 +1,18 @@
 package controllers;
 
+import models.Project;
+import models.Task;
 import play.*;
 import play.mvc.*;
-
 import views.html.*;
 
 public class Application extends Controller {
 
     public Result index() {
-        return ok(index.render("Zentask will be here"));
+        return ok(index.render(
+        			Project.find.all(),
+        			Task.find.all()
+        		));
     }
 
 }
