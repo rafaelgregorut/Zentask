@@ -22,8 +22,6 @@ public class ModelsTest extends WithApplication {
 	@Before
     public void setUp() {
         start(fakeApplication(inMemoryDatabase()));
-		Ebean.save((List) Yaml.load("test-data.yml"));
-
     }
 	
 	@Test
