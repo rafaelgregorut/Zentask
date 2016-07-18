@@ -1,0 +1,21 @@
+@* folder Template File *@
+@(folder: String, projectsList: List[Project])
+
+<li data-group="folder">
+	<span class="toggle"></span>
+	<h4 class="folderName">@folder</h4>
+	<span class="loader">Loading</span>
+	<dl class="option">
+		<dt>Options</dt>
+		<dd>
+			<button class="newProjectButton">New Project</button>
+			<button class="removeFolderButton">Remove folder</button>
+		</dd>
+	</dl>
+	
+	<ul>
+		@projectsList.map{ project =>
+			@views.html.projects.item(project)
+		}
+	</ul>
+</li>
