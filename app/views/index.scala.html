@@ -12,15 +12,16 @@
 	<article class="tasks">
 		@todoTasks.groupBy(_.project).map{
 			case (project,tasks) => {
-				<div class="folder" data-folder-id="@project.id">
-				<header>
-					<h3>@project.name</h3>
-				</header>
-				<ul class="list">
-					@tasks.map{ task =>
-						@views.html.tasks.item(task)
-					}
-				</ul>
+				<div class="projectGrouping" data-folder-id="@project.id">
+					<header>
+						<h3>@project.name</h3>
+					</header>
+					<ul class="list">
+						@tasks.map{ task =>
+							@views.html.tasks.item(task)
+						}
+					</ul>
+				</div>
 			}
 		}
 	</article>
