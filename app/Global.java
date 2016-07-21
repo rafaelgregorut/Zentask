@@ -13,7 +13,7 @@ public class Global extends GlobalSettings{
 	public void onStart(Application app) {
 		//Check if we need to import sample data for the users
 		if(User.find.findRowCount() == 0) {
-			Ebean.save((List) Yaml.load("test-data.yml"));
+			Ebean.save((List) Yaml.load("dev-data.yml"));
 		}
 	}
 

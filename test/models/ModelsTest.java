@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.start;
+import static play.test.Helpers.fakeGlobal;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class ModelsTest extends WithApplication {
 
 	@Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication(inMemoryDatabase(),fakeGlobal()));
+        Ebean.save((List) Yaml.load("test-data.yml"));
     }
 	
 	@Test
