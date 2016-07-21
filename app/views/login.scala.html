@@ -17,6 +17,11 @@
 	
 		@helper.form(routes.Login.authenticate) {
 			<h1>Sign in</h1>
+			
+			@if(loginForm.hasGlobalErrors) {
+				<p class="error">@loginForm.globalError.message</p>
+			}
+			
 			<p>
 				<input type="email" name="email" placeholder="Email" value="@loginForm("email").value">
 			</p>
