@@ -2,13 +2,14 @@ package controllers;
 
 import models.Project;
 import models.Task;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import play.mvc.Security;
+import views.html.index;
 
 public class Application extends Controller {
 
+	@Security.Authenticated(Secured.class)
     public Result index() {
 
         return ok(index.render(
