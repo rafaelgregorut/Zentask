@@ -2,6 +2,7 @@ package controllers;
 
 import models.Project;
 import models.Task;
+import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -11,10 +12,10 @@ public class Application extends Controller {
 
 	@Security.Authenticated(Secured.class)
     public Result index() {
-
         return ok(index.render(
-        			Project.find.all(),
-        			Task.find.all()
+        			Project.findInvolving(request().username()),
+        			Task.findProjectsWithPendingTasksInvolving(request().username()),
+        			User.find.byId(request().username())
         		));
     }
 
