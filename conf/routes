@@ -11,4 +11,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 # Login
 GET		/login						controllers.Login.login()
 
-POST	/login						controllers.Login.authenticate()	
+POST	/login						controllers.Login.authenticate()
+
+GET		/logout						controllers.Login.logout()

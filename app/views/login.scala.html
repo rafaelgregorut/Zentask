@@ -21,6 +21,9 @@
 			@if(loginForm.hasGlobalErrors) {
 				<p class="error">@loginForm.globalError.message</p>
 			}
+			@if(flash.contains("You have been logged out")) {
+				<p class="success">@flash.get("You have been logged out")</p>
+			}
 			
 			<p>
 				<input type="email" name="email" placeholder="Email" value="@loginForm("email").value">

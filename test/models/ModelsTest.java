@@ -16,6 +16,8 @@ import org.junit.Test;
 import play.libs.Yaml;
 import play.test.WithApplication;
 
+import models.*;
+
 import com.avaje.ebean.Ebean;
 
 public class ModelsTest extends WithApplication {

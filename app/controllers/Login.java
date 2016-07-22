@@ -40,4 +40,10 @@ public class Login extends Controller {
 		return null;
 	}
 	
+	public Result logout() {
+		session().clear();
+		flash("You have been logged out");
+		return redirect (routes.Login.login());
+	}
+	
 }
