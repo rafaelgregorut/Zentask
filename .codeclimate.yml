@@ -1,0 +1,15 @@
+ratings:
+	paths:
+	- "app/"
+
+
+exclude_paths:
+- "bin/"
+- "conf/"
+- "logs/"
+- "project/"
+- "public/stylesheets/"
+- "public/javascripts/*.min.js"
+- "public/javascripts/less.js"
+- "target/"
+- "test/"
