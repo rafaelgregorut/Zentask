@@ -1,7 +1,6 @@
 ratings:
-	paths:
-	- "app/"
-
+  paths:
+  - app/**
 
 exclude_paths:
 - "bin/"
