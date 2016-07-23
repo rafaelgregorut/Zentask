@@ -7,11 +7,10 @@
 		<time datetime="@task.dueDate">
 			@task.dueDate.format("MMM dd yyyy")
 		</time>
-								
-		@if(task.assignedTo != null && task.assignedTo.email != null) {
-			<span class="assignedTo">
-				@task.assignedTo.email
-			</span>	
-		}
+	}						
+	@if(task.assignedTo != null && task.assignedTo.email != null) {
+		<span class="assignedTo">
+			@task.assignedTo.email
+		</span>	
 	}
 </li>

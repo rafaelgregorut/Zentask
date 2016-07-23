@@ -41,4 +41,17 @@ public class Project extends Model {
 	public static List<Project> findInvolving(String user) {
 		return find.where().eq("members.email", user).findList();
 	}
+	
+	public static boolean isMemberOf(Long projectID, String user) {
+		//procuro por projetos com o ID dado e que tem como membro o usuario
+		//se a query retornar algum resultado, entao o usuario eh menbro do projeto
+		return find.where().eq("id", projectID).eq("members.email", user).findRowCount() > 0;
+	}
+	
+	public static String rename(Long projectID, String newName) {
+		Project toBeRenamed = find.ref(projectID);
+		toBeRenamed.name = newName;
+		toBeRenamed.update();
+		return newName;
+	}
 }
