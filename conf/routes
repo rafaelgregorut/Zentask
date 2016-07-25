@@ -14,3 +14,13 @@ GET		/login						controllers.Login.login()
 POST	/login						controllers.Login.authenticate()
 
 GET		/logout						controllers.Login.logout()
+
+#Project
+
+POST	/projects					controllers.ProjectController.addProject()
+
+POST	/projects/folder			controllers.ProjectController.addFolder()
+
+DELETE	/projects/:projectID		controllers.ProjectController.delete(projectID: Long)
+
+PUT		/projects/:projectID		controllers.ProjectController.rename(projectID: Long)

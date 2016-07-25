@@ -1,10 +1,14 @@
 package controllers;
 
-import play.*;
+import java.util.ArrayList;
+
+import models.Project;
 import play.data.Form;
-import play.mvc.*;
-import models.*;
-import views.html.projects.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
+import views.html.projects.item;
+import views.html.projects.folder.folder;
 
 @Security.Authenticated(Secured.class)
 public class ProjectController extends Controller{
@@ -23,5 +27,18 @@ public class ProjectController extends Controller{
 		} else {
 			return forbidden();
 		}
+	}
+	
+	public Result delete(Long projectID) {
+		if(Secured.isMemberOf(projectID, request().username())) {
+			Project.find.ref(projectID).delete();
+			return ok();
+		} else {
+			return forbidden();
+		}
+	}
+	
+	public Result addFolder() {
+		return ok(folder.render("New Folder",new ArrayList<Project>()));
 	}
 }
