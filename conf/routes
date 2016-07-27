@@ -24,3 +24,7 @@ POST	/projects/folder			controllers.ProjectController.addFolder()
 DELETE	/projects/:projectID		controllers.ProjectController.delete(projectID: Long)
 
 PUT		/projects/:projectID		controllers.ProjectController.rename(projectID: Long)
+
+#JAVASCRIPT ROUTER
+
+GET		/assets/javascripts/routes	controllers.Application.javascriptRoutes()
