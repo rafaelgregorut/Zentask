@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Project;
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,6 +19,7 @@ public class ProjectController extends Controller{
 				"New Project",
 				Form.form().bindFromRequest().get("folder"),
 				request().username());
+		Logger.info("added project");
 		return ok(item.render(newProject));
 	}
 	
