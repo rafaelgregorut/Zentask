@@ -148,7 +148,7 @@ public class ProjectControllerTest {
 	@Test
 	public void addFolderLoggedIn() {
 		Http.RequestBuilder request = new Http.RequestBuilder();
-		request.method("POST").path("/projects/folder");
+		request.method("POST").path("/projects/folders");
 		request.session(ImmutableMap.of("email","bob@example"));
 		
 		Result result = route(request,DEFAULT_TIMEOUT);
@@ -159,7 +159,7 @@ public class ProjectControllerTest {
 	@Test
 	public void addFolderNotLoggedIn() {
 		Http.RequestBuilder request = new Http.RequestBuilder();
-		request.method("POST").path("/projects/folder");
+		request.method("POST").path("/projects/folders");
 		
 		Result result = route(request,DEFAULT_TIMEOUT);
 		

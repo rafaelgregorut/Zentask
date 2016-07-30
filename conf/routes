@@ -23,7 +23,7 @@ GET		/logout						controllers.Login.logout()
 
 POST	/projects					controllers.ProjectController.addProject()
 
-POST	/projects/folder			controllers.ProjectController.addFolder()
+POST	/projects/folders			controllers.ProjectController.addFolder()
 
 DELETE	/projects/:projectID		controllers.ProjectController.delete(projectID: Long)
 

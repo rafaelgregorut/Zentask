@@ -41,6 +41,7 @@ public class ProjectController extends Controller{
 	}
 	
 	public Result addFolder() {
+		Logger.info("metodo de add folder");
 		return ok(folder.render("New Folder",new ArrayList<Project>()));
 	}
 }

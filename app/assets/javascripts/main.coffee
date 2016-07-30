@@ -48,7 +48,6 @@ class Folder extends Backbone.View
         @el.toggleClass("closed")
         false
     newProject: (e) ->
-        @el.removeClass("closed")
         jsRoutes.controllers.ProjectController.addProject().ajax
             context: this
             data:
@@ -62,6 +61,9 @@ class Folder extends Backbone.View
                 $.error("Error: " + err)
 
 class Project extends Backbone.View
+
+    events:
+        "click    .delete"    : "deleteProject"
 
     initialize: ->
         @id = this.$el.attr("data-project")
@@ -90,14 +92,36 @@ class Project extends Backbone.View
             this.$el.children(".loader").hide()
             this.$el.children(".delete").show()
 
+    deleteProject: (e) ->
+        e.preventDefault()
+        @loading(true)
+        jsRoutes.controllers.ProjectController.delete(@id).ajax
+            context: this
+            success: ->
+                this.$el.remove()
+                @loading(false)
+            error: (err) ->
+                @loading(false)
+                $.error("Error: " + err)
+        false
+
 
 class Drawer extends Backbone.View
 
     initialize: ->
+        $("#newFolder").click @addNewFolder
         this.$el.children("li").each (i, folder) ->
             new Folder(el: $(folder))
             $("li", folder).each (i, project) ->
                 new Project(el: $(project))
+
+    addNewFolder: ->
+        jsRoutes.controllers.ProjectController.addFolder().ajax
+            success: (data) ->
+                _view = new Folder
+                    el: $(data).appendTo("#projects")
+                _view.el.find(".folderName").editInPlace("edit")
+
 
 $ ->
     drawer = new Drawer(el: $("#projects"))
