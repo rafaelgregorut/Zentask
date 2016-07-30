@@ -48,7 +48,7 @@ class Folder extends Backbone.View
         @el.toggleClass("closed")
         false
     newProject: (e) ->
-        #@el.removeClass("closed")
+        @el.removeClass("closed")
         jsRoutes.controllers.ProjectController.addProject().ajax
             context: this
             data:
