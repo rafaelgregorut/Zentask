@@ -12,7 +12,6 @@ public class Folder extends Model{
 
 	@Id
 	public Long id;
-	@Required
 	public String name;
 	
     public static Model.Finder<Long,Folder> find = new Model.Finder(Long.class, Folder.class);
@@ -25,6 +24,10 @@ public class Folder extends Model{
 		return this.name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public static Folder create(String name) {
 		Folder folder = new Folder(name);
 		folder.save();
@@ -33,7 +36,7 @@ public class Folder extends Model{
 	
 	public static String rename(Long id, String newName) {
 		Folder toRename = find.ref(id);
-		toRename.name = newName;
+		toRename.setName(newName);
 		toRename.update();
 		return newName;
 	}

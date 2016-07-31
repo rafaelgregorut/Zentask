@@ -22,6 +22,7 @@ public class FolderController extends Controller{
 	}
 	
 	public Result renameFolder(Long id) {
+		Logger.info("metodo de rename folder");
 		return ok(Folder.rename(id, Form.form().bindFromRequest().get("name")));
 	}
 	
