@@ -33,7 +33,7 @@ public class Project extends Model {
 		this.members.add(owner);
 	}
 	
-	public static Project create(String name, String folder, String owner) {
+	public static Project create(String name, Long folder, String owner) {
 		Project project = new Project(name,Folder.find.ref(folder),User.find.ref(owner));
 		project.save();
 		Ebean.saveManyToManyAssociations(project, "members");

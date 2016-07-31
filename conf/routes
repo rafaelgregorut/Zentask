@@ -30,6 +30,6 @@ PUT		/projects/:projectID		controllers.ProjectController.rename(projectID: Long)
 #Folder
 POST	/folders					controllers.FolderController.addFolder()
 
-#DELETE /folders/:folderName			controllers.FolderController.deleteFolder(folderName: String)	
+DELETE /folders/:folderID		controllers.FolderController.removeFolder(folderID: Long)	
 
-PUT		/folders/:folderName		controllers.FolderController.renameFolder(folderName: String)
+PUT		/folders/:folderID		controllers.FolderController.renameFolder(folderID: Long)

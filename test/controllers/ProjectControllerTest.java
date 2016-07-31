@@ -38,7 +38,7 @@ public class ProjectControllerTest {
 		int countProjectsBefore;
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("POST").path("/projects");
-		request.bodyForm(ImmutableMap.of("folder",Folder.find.ref("Personal").name));
+		request.bodyForm(ImmutableMap.of("folder","1"));
 		request.session(ImmutableMap.of("email","bob@example.com"));
 		
 		countProjectsBefore = Project.find.where().eq("members.email", "bob@example.com").findRowCount();

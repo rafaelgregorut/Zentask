@@ -1,9 +1,9 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Model;
 
@@ -11,12 +11,18 @@ import com.avaje.ebean.Model;
 public class Folder extends Model{
 
 	@Id
+	public Long id;
+	@Required
 	public String name;
 	
-    public static Model.Finder<String,Folder> find = new Model.Finder(String.class, Folder.class);
+    public static Model.Finder<Long,Folder> find = new Model.Finder(Long.class, Folder.class);
 	
 	public Folder(String name) {
 		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	public static Folder create(String name) {
@@ -25,8 +31,8 @@ public class Folder extends Model{
 		return folder;
 	}
 	
-	public static String rename(String oldName, String newName) {
-		Folder toRename = find.ref(oldName);
+	public static String rename(Long id, String newName) {
+		Folder toRename = find.ref(id);
 		toRename.name = newName;
 		toRename.update();
 		return newName;

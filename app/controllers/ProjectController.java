@@ -14,7 +14,7 @@ public class ProjectController extends Controller{
 	public Result addProject() {
 		Project newProject = Project.create(
 				"New Project",
-				Form.form().bindFromRequest().get("folder"),
+				Long.valueOf(Form.form().bindFromRequest().get("folder")).longValue(),
 				request().username());
 		Logger.info("added project");
 		return ok(item.render(newProject));

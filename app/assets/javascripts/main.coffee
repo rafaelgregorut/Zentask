@@ -45,8 +45,10 @@ class Folder extends Backbone.View
     events:
         "click    .toggle"          : "toggle"
         "click    .newProject"      : "newProject"
+        "click    .removeFolder"    : "removeFolder"
 
     initialize: ->
+        @id = this.$el.attr("data-group")
         @name = $(".folderName", @el).editInPlace
             context: this
             onChange: @renameFolder
@@ -69,8 +71,8 @@ class Folder extends Backbone.View
                 $.error("Error: " + err)
 
     renameFolder: (newNameForFolder) ->
-        console.log(newNameForFolder)
-        jsRoutes.controllers.FolderController.renameFolder(@name).ajax
+        #console.log(newNameForFolder)
+        jsRoutes.controllers.FolderController.renameFolder(@id).ajax
             context: this
             data:
                 name: newNameForFolder
@@ -78,6 +80,17 @@ class Folder extends Backbone.View
                 @name.editInPlace("close", data)
             error: (err) ->
                 $.error("Error: " + err)
+
+    removeFolder: ->
+        jsRoutes.controllers.FolderController.removeFolder(@id).ajax
+            context: this
+            success: ->
+                this.$el.remove()
+            error: (err) ->
+                $.error("Error: "+err)
+
+
+
 
 class Project extends Backbone.View
 

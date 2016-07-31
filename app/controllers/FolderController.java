@@ -21,9 +21,12 @@ public class FolderController extends Controller{
 		return ok(folder.render(newFolder,new ArrayList<Project>()));
 	}
 	
-	public Result renameFolder(String name) {
-		return ok(Folder.rename(name, Form.form().bindFromRequest().get("name")));
+	public Result renameFolder(Long id) {
+		return ok(Folder.rename(id, Form.form().bindFromRequest().get("name")));
 	}
 	
-
+	public Result removeFolder(Long id) {
+		Folder.find.ref(id).delete();
+		return ok();
+	}
 }

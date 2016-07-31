@@ -4,14 +4,15 @@
 # --- !Ups
 
 create table folder (
-  name                      varchar(255) not null,
-  constraint pk_folder primary key (name))
+  id                        bigint not null,
+  name                      varchar(255),
+  constraint pk_folder primary key (id))
 ;
 
 create table project (
   id                        bigint not null,
   name                      varchar(255),
-  folder_name               varchar(255),
+  folder_id                 bigint,
   constraint pk_project primary key (id))
 ;
 
@@ -46,8 +47,8 @@ create sequence task_seq;
 
 create sequence user_seq;
 
-alter table project add constraint fk_project_folder_1 foreign key (folder_name) references folder (name) on delete restrict on update restrict;
-create index ix_project_folder_1 on project (folder_name);
+alter table project add constraint fk_project_folder_1 foreign key (folder_id) references folder (id) on delete restrict on update restrict;
+create index ix_project_folder_1 on project (folder_id);
 alter table task add constraint fk_task_assignedTo_2 foreign key (assigned_to_email) references user (email) on delete restrict on update restrict;
 create index ix_task_assignedTo_2 on task (assigned_to_email);
 alter table task add constraint fk_task_project_3 foreign key (project_id) references project (id) on delete restrict on update restrict;

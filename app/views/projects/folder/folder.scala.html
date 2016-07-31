@@ -1,9 +1,9 @@
 @* folder Template File *@
 @(folder: Folder, projectsList: List[Project])
 
-<li data-group="@folder.name">
+<li data-group="@folder.id">
 	<span class="toggle"></span>
-	<h4 class="folderName">@folder.name</h4>
+	<h4 class="folderName" id="@folder.getName()">@folder.getName()</h4>
 	<span class="loader">Loading</span>
 	<dl class="option">
 		<dt>Options</dt>
