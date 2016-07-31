@@ -23,9 +23,13 @@ GET		/logout						controllers.Login.logout()
 
 POST	/projects					controllers.ProjectController.addProject()
 
-POST	/projects/folders			controllers.ProjectController.addFolder()
-
 DELETE	/projects/:projectID		controllers.ProjectController.delete(projectID: Long)
 
 PUT		/projects/:projectID		controllers.ProjectController.rename(projectID: Long)
 
+#Folder
+POST	/folders					controllers.FolderController.addFolder()
+
+#DELETE /folders/:folderName			controllers.FolderController.deleteFolder(folderName: String)	
+
+PUT		/folders/:folderName		controllers.FolderController.renameFolder(folderName: String)

@@ -3,6 +3,7 @@ $.fn.editInPlace = (method, options...) ->
         methods =
             # public methods
             init: (options) ->
+                console.log("dei init")
                 valid = (e) =>
                     newValue = @input.val()
                     options.onChange.call(options.context, newValue)
@@ -21,6 +22,7 @@ $.fn.editInPlace = (method, options...) ->
                     .blur(valid)
                     .hide()
             edit: ->
+                console.log(this.input)
                 @input
                     .val(@el.text())
                     .show()
@@ -28,8 +30,8 @@ $.fn.editInPlace = (method, options...) ->
                     .select()
                 @el.hide()
             close: (newName) ->
-                @el.text(newName).show()
                 @input.hide()
+                @el.text(newName).show()
         # jQuery approach: http://docs.jquery.com/Plugins/Authoring
         if (methods[method])
             return methods[ method ].apply(this, options)
@@ -43,6 +45,12 @@ class Folder extends Backbone.View
     events:
         "click    .toggle"          : "toggle"
         "click    .newProject"      : "newProject"
+
+    initialize: ->
+        @name = $(".folderName", @el).editInPlace
+            context: this
+            onChange: @renameFolder
+
     toggle: (e) ->
         e.preventDefault()
         @el.toggleClass("closed")
@@ -57,6 +65,17 @@ class Folder extends Backbone.View
                 _view = new Project
                     el: $(tpl).appendTo(_list)
                 _view.$el.find(".name").editInPlace("edit")
+            error: (err) ->
+                $.error("Error: " + err)
+
+    renameFolder: (newNameForFolder) ->
+        console.log(newNameForFolder)
+        jsRoutes.controllers.FolderController.renameFolder(@name).ajax
+            context: this
+            data:
+                name: newNameForFolder
+            success: (data) ->
+                @name.editInPlace("close", data)
             error: (err) ->
                 $.error("Error: " + err)
 
@@ -111,16 +130,18 @@ class Drawer extends Backbone.View
     initialize: ->
         $("#newFolder").click @addNewFolder
         this.$el.children("li").each (i, folder) ->
+            folder
             new Folder(el: $(folder))
             $("li", folder).each (i, project) ->
                 new Project(el: $(project))
 
     addNewFolder: ->
-        jsRoutes.controllers.ProjectController.addFolder().ajax
+        jsRoutes.controllers.FolderController.addFolder().ajax
             success: (data) ->
                 _view = new Folder
                     el: $(data).appendTo("#projects")
-                _view.el.find(".folderName").editInPlace("edit")
+                #console.log(_view.$el.find(".folderName"))
+                #_view.$el.find(".folderName").editInPlace("edit")
 
 
 $ ->

@@ -32,7 +32,8 @@ public class Application extends Controller {
 						controllers.routes.javascript.ProjectController.addProject(),
 						controllers.routes.javascript.ProjectController.delete(),
 						controllers.routes.javascript.ProjectController.rename(),
-						controllers.routes.javascript.ProjectController.addFolder()
+						controllers.routes.javascript.FolderController.addFolder(),
+						controllers.routes.javascript.FolderController.renameFolder()
 						)
 				);
 	}

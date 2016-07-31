@@ -11,6 +11,7 @@ import static play.test.Helpers.status;
 
 import java.util.List;
 
+import models.Folder;
 import models.Project;
 
 import org.junit.Before;
@@ -34,23 +35,27 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void createProject() {
+		int countProjectsBefore;
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("POST").path("/projects");
-		request.bodyForm(ImmutableMap.of("folder","Folder for the new project"));
+		request.bodyForm(ImmutableMap.of("folder",Folder.find.ref("Personal").name));
 		request.session(ImmutableMap.of("email","bob@example.com"));
+		
+		countProjectsBefore = Project.find.where().eq("members.email", "bob@example.com").findRowCount();
 		
 		Result result = route(request,DEFAULT_TIMEOUT);
 		
+		
 		assertEquals(200,status(result));
-		Project project = Project.find.where().eq("folder", "Folder for the new project").findUnique();
+		assertEquals(Project.find.where().eq("members.email", "bob@example.com").findRowCount(),countProjectsBefore+1);
+		Project project = Project.find.where().eq("name", "New Project").findUnique();
 		assertNotNull(project);
-		assertEquals("New Project", project.name);
 		assertEquals("bob@example.com",project.members.get(0).email);
 	}
 	
 	@Test
 	public void renameProjectAuthorizedUser() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("PUT").path("/projects/"+projectID);
@@ -68,7 +73,7 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void renameProjectUnauthorizedUser() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("PUT").path("/projects/"+projectID);
@@ -87,7 +92,7 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void renameProjectNotLoggedIn() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("PUT").path("/projects/"+projectID);
@@ -105,7 +110,7 @@ public class ProjectControllerTest {
 	
 	@Test
 	public void deleteProjectAuthorizedUser() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("DELETE").path("/projects/"+projectID);
@@ -114,12 +119,12 @@ public class ProjectControllerTest {
 		Result result = route(request,DEFAULT_TIMEOUT);
 		
 		assertEquals(200,status(result));
-		assertEquals(false,Project.find.where().eq("name", "Website").eq("folder", "Play framework").findRowCount() > 0);
+		assertEquals(false,Project.find.where().eq("name", "Website").findRowCount() > 0);
 	}
 	
 	@Test
 	public void deleteProjectUnauthorizedUser() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("DELETE").path("/projects/"+projectID);
@@ -128,12 +133,12 @@ public class ProjectControllerTest {
 		Result result = route(request,DEFAULT_TIMEOUT);
 		
 		assertEquals(403,status(result));
-		assertEquals(true,Project.find.where().eq("name", "Website").eq("folder", "Play framework").findRowCount() == 1);
+		assertEquals(true,Project.find.where().eq("name", "Website").findRowCount() == 1);
 	}
 	
 	@Test
 	public void deleteProjectNotLoggedIn() {
-		Long projectID = Project.find.where().eq("name", "Website").eq("folder", "Play framework").findUnique().id;
+		Long projectID = Project.find.where().eq("name", "Website").findUnique().id;
 		
 		Http.RequestBuilder request = new Http.RequestBuilder();
 		request.method("DELETE").path("/projects/"+projectID);
@@ -142,27 +147,8 @@ public class ProjectControllerTest {
 		
 		//deve redirecionar para o login, entao eh o erro 303 (SEE OTHER)
 		assertEquals(303,status(result));
-		assertEquals(true,Project.find.where().eq("name", "Website").eq("folder", "Play framework").findRowCount() == 1);
+		assertEquals(true,Project.find.where().eq("name", "Website").findRowCount() == 1);
 	}
 
-	@Test
-	public void addFolderLoggedIn() {
-		Http.RequestBuilder request = new Http.RequestBuilder();
-		request.method("POST").path("/projects/folders");
-		request.session(ImmutableMap.of("email","bob@example"));
-		
-		Result result = route(request,DEFAULT_TIMEOUT);
-		
-		assertEquals(200,status(result));
-	}
 	
-	@Test
-	public void addFolderNotLoggedIn() {
-		Http.RequestBuilder request = new Http.RequestBuilder();
-		request.method("POST").path("/projects/folders");
-		
-		Result result = route(request,DEFAULT_TIMEOUT);
-		
-		assertEquals(303,status(result));
-	}
 }

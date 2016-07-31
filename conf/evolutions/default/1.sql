@@ -3,10 +3,15 @@
 
 # --- !Ups
 
+create table folder (
+  name                      varchar(255) not null,
+  constraint pk_folder primary key (name))
+;
+
 create table project (
   id                        bigint not null,
   name                      varchar(255),
-  folder                    varchar(255),
+  folder_name               varchar(255),
   constraint pk_project primary key (id))
 ;
 
@@ -16,7 +21,6 @@ create table task (
   done                      boolean,
   due_date                  timestamp,
   assigned_to_email         varchar(255),
-  folder                    varchar(255),
   project_id                bigint,
   constraint pk_task primary key (id))
 ;
@@ -34,16 +38,20 @@ create table project_user (
   user_email                     varchar(255) not null,
   constraint pk_project_user primary key (project_id, user_email))
 ;
+create sequence folder_seq;
+
 create sequence project_seq;
 
 create sequence task_seq;
 
 create sequence user_seq;
 
-alter table task add constraint fk_task_assignedTo_1 foreign key (assigned_to_email) references user (email) on delete restrict on update restrict;
-create index ix_task_assignedTo_1 on task (assigned_to_email);
-alter table task add constraint fk_task_project_2 foreign key (project_id) references project (id) on delete restrict on update restrict;
-create index ix_task_project_2 on task (project_id);
+alter table project add constraint fk_project_folder_1 foreign key (folder_name) references folder (name) on delete restrict on update restrict;
+create index ix_project_folder_1 on project (folder_name);
+alter table task add constraint fk_task_assignedTo_2 foreign key (assigned_to_email) references user (email) on delete restrict on update restrict;
+create index ix_task_assignedTo_2 on task (assigned_to_email);
+alter table task add constraint fk_task_project_3 foreign key (project_id) references project (id) on delete restrict on update restrict;
+create index ix_task_project_3 on task (project_id);
 
 
 
@@ -55,6 +63,8 @@ alter table project_user add constraint fk_project_user_user_02 foreign key (use
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists folder;
+
 drop table if exists project;
 
 drop table if exists project_user;
@@ -64,6 +74,8 @@ drop table if exists task;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists folder_seq;
 
 drop sequence if exists project_seq;
 

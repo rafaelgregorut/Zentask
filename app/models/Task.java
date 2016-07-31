@@ -16,7 +16,6 @@ public class Task extends Model{
 	public Date dueDate;
 	@ManyToOne
 	public User assignedTo;
-	public String folder;
 	@ManyToOne
 	public Project project;
 	
@@ -30,9 +29,8 @@ public class Task extends Model{
     	return find.where().eq("assignedTo.email", user).findList();
     }
     
-    public static Task create(Task task, Long project, String folder) {
+    public static Task create(Task task, Long project) {
         task.project = Project.find.ref(project);
-        task.folder = folder;
         task.save();
         return task;
     }

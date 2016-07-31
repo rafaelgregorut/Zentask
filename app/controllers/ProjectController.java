@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-
 import models.Project;
 import play.Logger;
 import play.data.Form;
@@ -9,7 +7,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.projects.item;
-import views.html.projects.folder.folder;
 
 @Security.Authenticated(Secured.class)
 public class ProjectController extends Controller{
@@ -40,8 +37,4 @@ public class ProjectController extends Controller{
 		}
 	}
 	
-	public Result addFolder() {
-		Logger.info("metodo de add folder");
-		return ok(folder.render("New Folder",new ArrayList<Project>()));
-	}
 }
