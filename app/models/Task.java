@@ -22,7 +22,11 @@ public class Task extends Model{
     public static Model.Finder<Long,Task> find = new Model.Finder(Long.class, Task.class);
     
     public static List<Task> findProjectsWithPendingTasksInvolving(String user) {
-    	return find.fetch("project").where().eq("done", false).eq("project.members.email", user).findList();
+    	return find.fetch("project").where().eq("done","false").eq("project.members.email", user).findList();
+    }
+    
+    public static List<Task> findTasksFromProject(Long projectID) {
+    	return find.where().eq("project.id", projectID).findList();
     }
     
     public static List<Task> findAssignedTo(String user) {

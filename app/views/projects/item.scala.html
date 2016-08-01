@@ -2,7 +2,7 @@
 @(project: Project)
 
 <li data-project="@project.id">
-	<a class="name" href="#">@project.name</a>
+	<a class="name" href="@routes.TaskController.index(project.id)">@project.name</a>
 	<button class="delete" href="#">Delete</button>
 	<span class="loader">Loading</span>
 </li>

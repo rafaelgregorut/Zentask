@@ -33,3 +33,6 @@ POST	/folders					controllers.FolderController.addFolder()
 DELETE /folders/:folderID		controllers.FolderController.removeFolder(folderID: Long)	
 
 PUT		/folders/:folderID		controllers.FolderController.renameFolder(folderID: Long)
+
+#Tasks
+GET		/projects/:projectID/tasks	controllers.TaskController.index(projectID: Long)

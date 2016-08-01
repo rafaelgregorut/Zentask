@@ -13,4 +13,13 @@
 			@task.assignedTo.email
 		</span>	
 	}
+	@if(task.done != null) {
+		<p class="taskDone">
+			@if(task.done) {
+				DONE
+			} else {
+				NOT DONE 
+			}
+		</p>
+	}
 </li>
