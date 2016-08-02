@@ -1,14 +1,14 @@
 package models;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import play.Logger;
+import play.data.format.Formats;
 
 import com.avaje.ebean.Model;
 
@@ -19,6 +19,7 @@ public class Task extends Model{
 	public Long id;
 	public String title;
 	public boolean done = false;
+    @Formats.DateTime(pattern="MM/dd/yy")
 	public Date dueDate;
 	@ManyToOne
 	public User assignedTo;
@@ -47,7 +48,8 @@ public class Task extends Model{
     }
     
     public static Task create(String title, Date dueDate, User assignedTo, Long project) {
-   		Task task = new Task(title,dueDate,assignedTo,Project.find.ref(project));	      
+    	
+   		Task task = new Task(title,dueDate,assignedTo,Project.find.ref(project));	
 		task.save();
 	    return task;
     }

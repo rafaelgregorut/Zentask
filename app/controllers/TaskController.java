@@ -3,6 +3,7 @@ package controllers;
 import models.Project;
 import models.Task;
 import models.User;
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -26,11 +27,7 @@ public class TaskController extends Controller {
 	public Result addTask(Long projectID) {
 		if(Secured.isMemberOf(projectID, request().username())) {
 			Form<Task> taskForm = Form.form(Task.class).bindFromRequest();
-			if(taskForm.hasErrors()) {
-				return badRequest();
-			} else {
-				return ok(item.render(Task.create(taskForm.get().title, taskForm.get().dueDate, taskForm.get().assignedTo, projectID)));
-			}
+			return ok(item.render(Task.create(taskForm.get().title, taskForm.get().dueDate, taskForm.get().assignedTo, projectID)));
 		} else {
 			return forbidden();
 		}

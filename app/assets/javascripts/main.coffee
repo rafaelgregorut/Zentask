@@ -156,8 +156,26 @@ class Drawer extends Backbone.View
                 #console.log(_view.$el.find(".folderName"))
                 #_view.$el.find(".folderName").editInPlace("edit")
 
+class Task extends Backbone.View
+    
+    initialize: ->
+        $("#addTaskButton").click @addTask
+        console.log("inicializei uma task")
+
+    addTask: ->
+        @projectID = $(".projectGrouping").attr("data-project-id")
+        console.log("projectID dessa task eh"+@projectID)
+        jsRoutes.controllers.TaskController.addTask(@projectID).ajax
+            context: this
+            data:
+                form: $("#formNewTask") 
+            success: (data) ->
+                console.log("coloquei a nova task na lista")
+            error: (err) ->
+                $.error("Error: " + err)
 
 
 
 $ ->
     drawer = new Drawer(el: $("#projects"))
+    tasks = new Task(el: $(".tasks"))

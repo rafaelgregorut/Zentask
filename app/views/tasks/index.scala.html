@@ -12,7 +12,7 @@
 	</header>
 	<article class="tasks">
 
-		<div class="projectGrouping" data-folder-id="@project.id">
+		<div class="projectGrouping" data-project-id="@project.id">
 			<ul class="list">
 				@tasks.map{ task =>
 					@views.html.tasks.item(task)
@@ -20,13 +20,16 @@
 			</ul>
 		</div>
 
-		<form class="addTask">
-			<input type="text" name="taskTitle" placeholder="New task..."/>
-			<input type="text" name="dueDate" class="dueDate" placeholder="Due date: mm/dd/yyyy"/>
+	<!-- method="post" action="@routes.TaskController.addTask(project.id) -->
+	
+	<form method="post" id="formNewTask">
+			<input id="inputName" type="text" name="title" placeholder="New task..."/>
+			<input id="inputDueDate" type="text" name="dueDate" class="dueDate" placeholder="Due date: mm/dd/yy"/>
 			<div class="assignedTo">
-				<input type="text" name="assignedTo" class="assignedTo" placeholder="Assign to..."/>
+				<input id="inputAssignedTo" type="text" name="assignedTo.email" class="assignedTo" placeholder="Assign to..."/>
 			</div>
-			<input type="submit" value="Add task">
-		</form>
+			<input id="addTaskButton" type="submit" value="Add task"/>
+	</form>							
+		
 	</article>
 }

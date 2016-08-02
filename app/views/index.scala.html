@@ -12,7 +12,7 @@
 	<article class="tasks">
 		@todoTasks.groupBy(_.project).map{
 			case (project,tasks) => {
-				<div class="projectGrouping" data-folder-id="@project.id">
+				<div class="projectGrouping" data-project-id="@project.id">
 					<header>
 						<h3>@project.name</h3>
 					</header>
