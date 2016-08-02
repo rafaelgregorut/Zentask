@@ -157,5 +157,7 @@ class Drawer extends Backbone.View
                 #_view.$el.find(".folderName").editInPlace("edit")
 
 
+
+
 $ ->
     drawer = new Drawer(el: $("#projects"))

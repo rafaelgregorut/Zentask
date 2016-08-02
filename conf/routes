@@ -36,3 +36,5 @@ PUT		/folders/:folderID		controllers.FolderController.renameFolder(folderID: Lon
 
 #Tasks
 GET		/projects/:projectID/tasks	controllers.TaskController.index(projectID: Long)
+
+POST	/projects/:projectID/tasks	controllers.TaskController.addTask(projectID: Long)

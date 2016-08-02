@@ -1,4 +1,4 @@
-@* index Template File *@
+@* Task index Template File*@
 @(project: Project, tasks: List[Task], projects: List[Project], user: User)
 
 @main(projects, user) {
@@ -20,5 +20,13 @@
 			</ul>
 		</div>
 
+		<form class="addTask">
+			<input type="text" name="taskTitle" placeholder="New task..."/>
+			<input type="text" name="dueDate" class="dueDate" placeholder="Due date: mm/dd/yyyy"/>
+			<div class="assignedTo">
+				<input type="text" name="assignedTo" class="assignedTo" placeholder="Assign to..."/>
+			</div>
+			<input type="submit" value="Add task">
+		</form>
 	</article>
 }

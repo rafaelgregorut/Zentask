@@ -1,11 +1,13 @@
 package controllers;
 
+import models.Project;
+import models.Task;
+import models.User;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.tasks.index;
-import models.*;
-
+import views.html.tasks.*;
 @Security.Authenticated(Secured.class)
 public class TaskController extends Controller {
 
@@ -16,6 +18,19 @@ public class TaskController extends Controller {
 					Project.findInvolving(request().username()),
         			User.find.byId(request().username())
 					));
+		} else {
+			return forbidden();
+		}
+	}
+	
+	public Result addTask(Long projectID) {
+		if(Secured.isMemberOf(projectID, request().username())) {
+			Form<Task> taskForm = Form.form(Task.class).bindFromRequest();
+			if(taskForm.hasErrors()) {
+				return badRequest();
+			} else {
+				return ok(item.render(Task.create(taskForm.get().title, taskForm.get().dueDate, taskForm.get().assignedTo, projectID)));
+			}
 		} else {
 			return forbidden();
 		}
