@@ -22,4 +22,8 @@ public class Secured extends Security.Authenticator {
 		//Mas preferi passar o user como parametro e lidar com o request no projectcontroller mesmo
 		return Project.isMemberOf(projectID, user);
 	}
+	
+	public static boolean isTheAssignedTo(String user, Long taskID) {
+		return Task.find.ref(taskID).assignedTo.email.equals(user);
+	}
 }

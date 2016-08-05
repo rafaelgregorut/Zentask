@@ -57,4 +57,14 @@ public class TaskController extends Controller {
 			return forbidden();
 		}
 	}
+	
+	public Result updateDone(Long taskID) {
+		if(Secured.isTheAssignedTo(request().username(), taskID)) {
+			Task.updateDone(taskID);
+			Logger.info("atualizei o done da task "+taskID);
+			return ok();
+		} else {
+			return forbidden();
+		}
+	}
 }

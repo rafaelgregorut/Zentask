@@ -53,4 +53,11 @@ public class Task extends Model{
 		task.save();
 	    return task;
     }
+    
+    public static Task updateDone(Long taskID) {
+    	Task toBeUpdated = Task.find.ref(taskID);
+    	toBeUpdated.done = !toBeUpdated.done;
+    	toBeUpdated.update();
+    	return toBeUpdated;
+    }
 }

@@ -14,12 +14,16 @@
 		</span>	
 	}
 	
+	<!-- 
 	<p class="taskDone">
 		@if(task.done) {	
 			DONE
 		} else {
 			NOT DONE 
 		}
+	</p> -->
+	<p>
+		DONE?
+		<input class="done" type="checkbox" @(if(task.done) "checked") />
 	</p>
-	
 </li>

@@ -158,6 +158,29 @@ class Drawer extends Backbone.View
 
 class TaskItem extends Backbone.View
 
+    events:
+        "change .done"          : "toggle"
+    initialize: ->
+        @id = @$el.attr("data-task-id")
+        console.log("inicializei um task item")
+
+    toggle: (e) =>
+        e.preventDefault()
+        #@loading(true)
+        jsRoutes.controllers.TaskController.updateDone(@id).ajax
+            context: this
+            #data:
+             #   done: val
+            #success: ->
+                #@loading(false)
+                #@check.attr("checked",val)
+                #@trigger("change", @)
+                #console.log("sucesso no done")
+            error: (err) ->
+                #@loading(false)
+                $.error("Error: " + err)
+        false
+
 class TaskList extends Backbone.View
     
     events:
@@ -165,8 +188,12 @@ class TaskList extends Backbone.View
 
     initialize: ->
         console.log("inicializei uma task")
+        @tasks = $.map $(".taskList li",@el), (item)=>
+            newTask = new TaskItem
+                el: $(item)
+    
 
-    addTask: ->
+    addTask: (e) =>
         @projectID = $(".projectGrouping").attr("data-project-id")
         console.log("projectID dessa task eh"+@projectID)
         e.preventDefault()
