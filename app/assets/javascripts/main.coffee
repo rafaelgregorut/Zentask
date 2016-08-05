@@ -156,26 +156,49 @@ class Drawer extends Backbone.View
                 #console.log(_view.$el.find(".folderName"))
                 #_view.$el.find(".folderName").editInPlace("edit")
 
-class Task extends Backbone.View
+class TaskItem extends Backbone.View
+
+class TaskList extends Backbone.View
     
+    events:
+        "submit .addTask"               : "newTask"
+
     initialize: ->
-        $("#addTaskButton").click @addTask
         console.log("inicializei uma task")
 
     addTask: ->
         @projectID = $(".projectGrouping").attr("data-project-id")
         console.log("projectID dessa task eh"+@projectID)
+        e.preventDefault()
+        $(document).focus() # temporary disable form
+        form = $(e.target)
+        taskBody = $("input[id=inputName]", form).val() #title
+        url = form.attr("action")
         jsRoutes.controllers.TaskController.addTask(@projectID).ajax
+            url: url
+            type: "POST"
             context: this
             data:
-                form: $("#formNewTask") 
-            success: (data) ->
-                console.log("coloquei a nova task na lista")
+                title: $("input[id=taskBody]", form).val()
+                dueDate: $("input[id=inputDueDate]", form).val()
+                assignedTo: 
+                    email: $("input[id=inputAssignedTo]", form).val()
+            success: (tpl) ->
+                newTask = new TaskItem(el: $(tpl))
+                console.log("newTask")
+                #this.$el.find("ul").append(newTask.$el)
+                #$("#taskList").append(newTask.$el)
+                $(tpl).appendTo("#taskList")
+                #$(".taskList").append(newTask.el)
+                form.find("input[type=text]").val("").first().focus()
             error: (err) ->
-                $.error("Error: " + err)
+                $.error("Something went wrong:" + err)
+        false
+
+
 
 
 
 $ ->
     drawer = new Drawer(el: $("#projects"))
-    tasks = new Task(el: $(".tasks"))
+    tasks = new TaskList(el: $(".tasks"))
