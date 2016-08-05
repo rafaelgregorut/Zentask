@@ -153,8 +153,7 @@ class Drawer extends Backbone.View
             success: (data) ->
                 _view = new Folder
                     el: $(data).appendTo("#projects")
-                #console.log(_view.$el.find(".folderName"))
-                #_view.$el.find(".folderName").editInPlace("edit")
+                _view.$el.find(".folderName").editInPlace("edit")
 
 class TaskItem extends Backbone.View
 
@@ -166,16 +165,8 @@ class TaskItem extends Backbone.View
 
     toggle: (e) =>
         e.preventDefault()
-        #@loading(true)
         jsRoutes.controllers.TaskController.updateDone(@id).ajax
             context: this
-            #data:
-             #   done: val
-            #success: ->
-                #@loading(false)
-                #@check.attr("checked",val)
-                #@trigger("change", @)
-                #console.log("sucesso no done")
             error: (err) ->
                 #@loading(false)
                 $.error("Error: " + err)
@@ -213,10 +204,7 @@ class TaskList extends Backbone.View
             success: (tpl) ->
                 newTask = new TaskItem(el: $(tpl))
                 console.log("newTask")
-                #this.$el.find("ul").append(newTask.$el)
-                #$("#taskList").append(newTask.$el)
                 $(tpl).appendTo("#taskList")
-                #$(".taskList").append(newTask.el)
                 form.find("input[type=text]").val("").first().focus()
             error: (err) ->
                 $.error("Something went wrong:" + err)

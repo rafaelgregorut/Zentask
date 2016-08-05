@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import play.Logger;
 import play.data.format.Formats;
 
 import com.avaje.ebean.Model;
