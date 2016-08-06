@@ -1,8 +1,9 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 
 import com.avaje.ebean.Model;
 
@@ -39,5 +40,4 @@ public class Folder extends Model{
 		toRename.update();
 		return newName;
 	}
-	
 }
