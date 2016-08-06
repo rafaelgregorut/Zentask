@@ -21,13 +21,13 @@ public class Task extends Model{
     @Formats.DateTime(pattern="MM/dd/yy")
 	public Date dueDate;
 	@ManyToOne
-	public User assignedTo;
+	public ZenUser assignedTo;
 	@ManyToOne
 	public Project project;
 	
     public static Model.Finder<Long,Task> find = new Model.Finder(Long.class, Task.class);
     
-    public Task(String title, Date dueDate, User assignedTo, Project project) {
+    public Task(String title, Date dueDate, ZenUser assignedTo, Project project) {
     	this.title = title;
     	this.dueDate = dueDate;
     	this.assignedTo = assignedTo;
@@ -35,7 +35,7 @@ public class Task extends Model{
     }
     
     public static List<Task> findProjectsWithPendingTasksInvolving(String user) {
-    	return find.fetch("project").where().eq("done","false").eq("project.members.email", user).findList();
+    	return find.fetch("project").where().eq("done",false).eq("project.members.email", user).findList();
     }
     
     public static List<Task> findTasksFromProject(Long projectID) {
@@ -46,7 +46,7 @@ public class Task extends Model{
     	return find.where().eq("assignedTo.email", user).findList();
     }
     
-    public static Task create(String title, Date dueDate, User assignedTo, Long project) {
+    public static Task create(String title, Date dueDate, ZenUser assignedTo, Long project) {
     	
    		Task task = new Task(title,dueDate,assignedTo,Project.find.ref(project));	
 		task.save();

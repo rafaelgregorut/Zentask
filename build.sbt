@@ -9,7 +9,8 @@ scalaVersion := "2.11.6"
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  javaWs
+  javaWs,
+  "org.postgresql" % "postgresql" % "9.3-1102-jdbc4"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

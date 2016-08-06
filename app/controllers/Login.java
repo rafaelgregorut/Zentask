@@ -1,6 +1,6 @@
 package controllers;
 
-import models.User;
+import models.ZenUser;
 import play.data.*;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -31,7 +31,7 @@ public class Login extends Controller {
 	}
 	
 	public String validate() {
-		if (User.authenticate(email, password) == null) {
+		if (ZenUser.authenticate(email, password) == null) {
 			//Mensagem retornada pelo validate se torna um erro global
 			return "Invalid user or password";
 		}

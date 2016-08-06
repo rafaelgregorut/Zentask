@@ -56,7 +56,7 @@ public class TaskTest extends WithApplication {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yy"); 
 		Date dueDate = (Date)formatter.parse(dateStr);
 		int countBeforeCreation = Task.find.findRowCount();
-		Task task = Task.create("title", dueDate, User.find.ref("bob@example.com"), (long)1);
+		Task task = Task.create("title", dueDate, ZenUser.find.ref("bob@example.com"), (long)1);
 		assertEquals("title",task.title);
 		assertEquals(dueDate.toString(),task.dueDate.toString());
 		assertEquals("bob@example.com",task.assignedTo.email);

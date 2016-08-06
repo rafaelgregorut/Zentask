@@ -29,18 +29,18 @@ public class UserTest extends WithApplication {
 	//USER
 	@Test
 	public void createAndRetrieveUser() {
-		new User("greg@example.com","Greg","123456").save();
-		User greg = User.find.where().eq("email", "greg@example.com").findUnique();
+		new ZenUser("greg@example.com","Greg","123456").save();
+		ZenUser greg = ZenUser.find.where().eq("email", "greg@example.com").findUnique();
 		assertNotNull(greg);
 		assertEquals(greg.name,"Greg");
 	}
 	
 	@Test
 	public void tryAuthenticateUser() {
-		assertNull(User.authenticate("bob@example", "098765"));
-		assertNull(User.authenticate("test@test.com", "secret"));
-		assertNotNull(User.authenticate("jane@example.com", "secret"));
-		assertNotNull(User.authenticate("bob@example.com","secret"));
+		assertNull(ZenUser.authenticate("bob@example", "098765"));
+		assertNull(ZenUser.authenticate("test@test.com", "secret"));
+		assertNotNull(ZenUser.authenticate("jane@example.com", "secret"));
+		assertNotNull(ZenUser.authenticate("bob@example.com","secret"));
 		
 	}
 }

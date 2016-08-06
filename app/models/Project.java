@@ -23,18 +23,18 @@ public class Project extends Model {
 	public Folder folder;
 	
     @ManyToMany(cascade = CascadeType.ALL)
-	public List<User> members = new ArrayList<User>();
+	public List<ZenUser> members = new ArrayList<ZenUser>();
 	
 	public static Model.Finder<Long, Project> find = new Model.Finder(Long.class,Project.class);
     
-	public Project (String name, Folder folder, User owner) {
+	public Project (String name, Folder folder, ZenUser owner) {
 		this.name = name;
 		this.folder = folder;
 		this.members.add(owner);
 	}
 	
 	public static Project create(String name, Long folder, String owner) {
-		Project project = new Project(name,Folder.find.ref(folder),User.find.ref(owner));
+		Project project = new Project(name,Folder.find.ref(folder),ZenUser.find.ref(owner));
 		project.save();
 		Ebean.saveManyToManyAssociations(project, "members");
 		return project;

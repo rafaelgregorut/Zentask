@@ -7,7 +7,7 @@ import java.util.Date;
 
 import models.Project;
 import models.Task;
-import models.User;
+import models.ZenUser;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -24,7 +24,7 @@ public class TaskController extends Controller {
 			return ok(index.render(Project.find.ref(projectID),
 					Task.findTasksFromProject(projectID),
 					Project.findInvolving(request().username()),
-        			User.find.byId(request().username())
+        			ZenUser.find.byId(request().username())
 					));
 		} else {
 			return forbidden();
@@ -50,8 +50,8 @@ public class TaskController extends Controller {
 					e.printStackTrace();
 					return badRequest();
 				}
-	        	User user = User.find.ref(dynForm.get("assignedTo"));
-	        	return ok(item.render(Task.create(dynForm.get("title"), dueDate, user, projectID)));
+	        	ZenUser zenUser = ZenUser.find.ref(dynForm.get("assignedTo"));
+	        	return ok(item.render(Task.create(dynForm.get("title"), dueDate, zenUser, projectID)));
 	        }
 	    } else {
 			return forbidden();

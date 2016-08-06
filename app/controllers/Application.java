@@ -4,7 +4,7 @@ package controllers;
 //import play.api.routing.*;
 import models.Project;
 import models.Task;
-import models.User;
+import models.ZenUser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -18,7 +18,7 @@ public class Application extends Controller {
         return ok(index.render(
         			Project.findInvolving(request().username()),
         			Task.findProjectsWithPendingTasksInvolving(request().username()),
-        			User.find.byId(request().username())
+        			ZenUser.find.byId(request().username())
         		));
     }
 	
