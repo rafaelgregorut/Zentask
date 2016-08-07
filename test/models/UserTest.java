@@ -18,7 +18,7 @@ import play.test.WithApplication;
 
 import com.avaje.ebean.Ebean;
 
-public class UserTest extends WithApplication {
+public class UserTest {
 
 	@Before
     public void setUp() {

@@ -6,28 +6,29 @@ import static org.junit.Assert.assertNull;
 import static play.test.Helpers.DEFAULT_TIMEOUT;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.fakeGlobal;
-import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.header;
+import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.route;
 import static play.test.Helpers.session;
 import static play.test.Helpers.start;
 import static play.test.Helpers.status;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import play.db.Database;
+import play.db.Databases;
 import play.libs.Yaml;
 import play.mvc.Http;
 import play.mvc.Result;
-import play.test.WithApplication;
-
 import com.avaje.ebean.Ebean;
 import com.google.common.collect.ImmutableMap;
 
 @SuppressWarnings("deprecation")
-public class LoginTest extends WithApplication {
+public class LoginTest {
 
 	@Before
 	public void setUp() {

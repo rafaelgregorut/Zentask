@@ -16,12 +16,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import play.libs.Yaml;
-import play.test.WithApplication;
 
 import com.avaje.ebean.Ebean;
 
 
-public class TaskTest extends WithApplication {
+public class TaskTest {
 
 	@Before
     public void setUp() {
